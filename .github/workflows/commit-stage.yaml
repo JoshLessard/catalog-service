@@ -24,8 +24,10 @@ jobs:
           path: "${{ github.workspace }}"
           fail-build: false
           severity-cutoff: high
+      - name: Check SARIF file contents
+        run: cat ./results.sarif
       - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: success() || failure()
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
