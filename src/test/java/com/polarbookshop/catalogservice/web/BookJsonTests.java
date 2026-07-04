@@ -30,6 +30,8 @@ public class BookJsonTests {
             "Wombly Publishing",
             Instant.ofEpochMilli( 43785239324L ),
             Instant.ofEpochMilli( 58234872358L ),
+            "creator",
+            "modifier",
             18
         );
 
@@ -60,6 +62,12 @@ public class BookJsonTests {
             .extractingJsonPathValue( "@.lastModifiedDate" )
             .isEqualTo( book.lastModifiedDate().toString() );
         assertThat( jsonContent )
+            .extractingJsonPathStringValue( "@.createdBy" )
+            .isEqualTo( "creator" );
+        assertThat( jsonContent )
+            .extractingJsonPathStringValue( "@.lastModifiedBy" )
+            .isEqualTo( "modifier" );
+        assertThat( jsonContent )
             .extractingJsonPathNumberValue( "@.version" )
             .isEqualTo( book.version() );
     }
@@ -77,6 +85,8 @@ public class BookJsonTests {
                 "publisher": "O'Reilly",
                 "createdDate": "2008-05-06T12:11:27.319Z",
                 "lastModifiedDate": "2012-06-18T09:37:33.973Z",
+                "createdBy": "theCreator",
+                "lastModifiedBy": "theModifier",
                 "version": 27
             }
             """;
@@ -95,6 +105,8 @@ public class BookJsonTests {
                     "O'Reilly",
                     Instant.parse( "2008-05-06T12:11:27.319Z" ),
                     Instant.parse( "2012-06-18T09:37:33.973Z" ),
+                    "theCreator",
+                    "theModifier",
                     27
                 )
             );
