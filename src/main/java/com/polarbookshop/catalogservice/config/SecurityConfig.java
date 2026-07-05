@@ -21,8 +21,8 @@ public class SecurityConfig {
         return http
             .authorizeHttpRequests( authorize ->
                 authorize
-                    .requestMatchers( HttpMethod.GET, "/", "/books/**" )
-                        .permitAll()
+                    .requestMatchers( "/actuator/**" ).permitAll()
+                    .requestMatchers( HttpMethod.GET, "/", "/books/**" ).permitAll()
                     .anyRequest().hasRole( "employee" )
             )
             .oauth2ResourceServer( server ->
