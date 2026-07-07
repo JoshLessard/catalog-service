@@ -8,5 +8,6 @@ custom_build(
     deps = ['build.gradle', 'src']
 )
 
-# Deploy
-k8s_yaml(['k8s/deployment.yaml', 'k8s/service.yaml'])
+k8s_yaml(kustomize('k8s'))
+
+k8s_resource('catalog-service', port_forwards=['9001'])
